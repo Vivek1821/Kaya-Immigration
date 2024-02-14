@@ -1,0 +1,13 @@
+.news-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+}
