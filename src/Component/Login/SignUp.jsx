@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ const SignUp = () => {
   const [occupation, setOccupation] = useState(""); // New state for occupation
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const { register } = useKindeAuth();
   const navigate = useNavigate();
 
   const handleSignUp = (e) => {
@@ -35,8 +37,9 @@ const SignUp = () => {
 
     // Simulating a successful sign-up
     setTimeout(() => {
+      register();
       setSuccessMessage("Sign-up successful!");
-      navigate("/signin");
+      // navigate("/signin");
     }, 1000);
 
     setEmail("");

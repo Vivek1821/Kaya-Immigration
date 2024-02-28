@@ -1,4 +1,3 @@
-// Card.js
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -8,6 +7,20 @@ const Card = ({ title, image, details, path }) => {
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
+  };
+
+  const renderDetails = () => {
+    if (typeof details === "string") {
+      return <p className="text-gray-600">{details}</p>;
+    } else if (Array.isArray(details)) {
+      return details.map((paragraph, index) => (
+        <p key={index} className="text-gray-600 mb-2">
+          {paragraph}
+        </p>
+      ));
+    } else {
+      return <p className="text-gray-600">{details.toString()}</p>;
+    }
   };
 
   return (
@@ -36,11 +49,7 @@ const Card = ({ title, image, details, path }) => {
       </div>
       {showDetails && (
         <div className="p-6 flex flex-col">
-          {details.map((paragraph, index) => (
-            <p key={index} className="text-gray-600 mb-2">
-              {paragraph}
-            </p>
-          ))}
+          {renderDetails()}
           <Link
             to={path}
             className="mt-4 block text-center py-2 bg-primary text-black font-semibold rounded-full"

@@ -11,6 +11,7 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+  const { login, register } = useKindeAuth();
 
   useEffect(() => {
     // Generate captcha when the component mounts
