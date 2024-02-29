@@ -9,6 +9,7 @@ const InputForm = () => {
     email: "",
     contactNumber: "",
   });
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -26,7 +27,43 @@ const InputForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", formData);
+
+    // Prepare the data to be sent
+    const postData = {
+      name: formData.name,
+      email: formData.email,
+      contactNumber: formData.contactNumber,
+      selectedTimeSlot: selectedTimeSlot,
+    };
+
+    // POST the data to your API
+    fetch("https://65e09bb8d3db23f76249b70d.mockapi.io/calendar-data", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Data successfully posted to API:", data);
+        setSubmitSuccess(true); // Set submit success flag to true
+        // Reset form data after submission
+        setFormData({
+          name: "",
+          email: "",
+          contactNumber: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error posting data to API:", error);
+        // Handle errors here
+      });
   };
 
   return (
@@ -36,7 +73,13 @@ const InputForm = () => {
         <h3 className="text-lg text-center text-gray-700 mb-4">
           Selected Time Slot: {selectedTimeSlot}
         </h3>
+        {submitSuccess && (
+          <p className="text-green-500 text-center mb-4">
+            Form submitted successfully!
+          </p>
+        )}
         <form onSubmit={handleSubmit}>
+          {/* Form inputs */}
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -50,7 +93,7 @@ const InputForm = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="form-input w-full border-1 border-black"
+              className="form-input w-full border-1 border-black rounded-md"
               required
             />
           </div>
@@ -67,7 +110,7 @@ const InputForm = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="form-input w-full border-1 border-black"
+              className="form-input w-full border-1 border-black rounded-md"
               required
             />
           </div>
@@ -84,7 +127,7 @@ const InputForm = () => {
               name="contactNumber"
               value={formData.contactNumber}
               onChange={handleInputChange}
-              className="form-input w-full border-1 border-black"
+              className="form-input w-full border-1 border-black rounded-md"
               required
             />
           </div>

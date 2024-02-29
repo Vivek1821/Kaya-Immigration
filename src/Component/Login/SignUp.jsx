@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import supabase from "../SupabaseClient";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +10,8 @@ const SignUp = () => {
   const [occupation, setOccupation] = useState(""); // New state for occupation
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const { register } = useKindeAuth();
+  const [captchaToken, setCaptchaToken] = useState();
+  const captcha = useRef();
   const navigate = useNavigate();
 
   const handleSignUp = (e) => {
@@ -35,18 +37,31 @@ const SignUp = () => {
       return;
     }
 
-    // Simulating a successful sign-up
-    setTimeout(() => {
-      register();
-      setSuccessMessage("Sign-up successful!");
-      // navigate("/signin");
-    }, 1000);
+    supabase.auth
+      .signUp({
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        data: { occupation: occupation }, // Include occupation in the data object
+        options: { captchaToken },
+      })
+      .then(() => {
+        captcha.current.resetCaptcha();
+        // Simulating a successful sign-up
+        setTimeout(() => {
+          setSuccessMessage("Sign-up successful!");
+          navigate("/signin");
+        }, 1000);
 
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setOccupation("");
-    setError("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setOccupation("");
+        setError("");
+      })
+      .catch((error) => {
+        setError(error.message); // Set error message based on Supabase error
+      });
   };
 
   return (
@@ -124,6 +139,14 @@ const SignUp = () => {
               <option value="employee">Employee</option>
             </select>
           </div>
+          <HCaptcha
+            ref={captcha}
+            sitekey="5803d199-7050-436e-86f2-fdc26e302e1e"
+            onVerify={(token) => {
+              setCaptchaToken(token);
+            }}
+          />
+
           <button
             type="submit"
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full"

@@ -11,6 +11,7 @@ import NewsAndTips from "./Home/NewsAndTips";
 import FAQ from "./Home/FAQ";
 import GetInTouch from "./Home/GetInTouch";
 import { Link } from "react-router-dom";
+// import { AuthFile } from "../Auth/AuthFile";
 
 const Home = () => {
   const legendStyles = {
@@ -96,6 +97,7 @@ const Home = () => {
       <NewsAndTips />
       <GetInTouch />
       <FAQ className="mt-10" />
+      {/* <AuthFile /> */}
     </div>
   );
 };
