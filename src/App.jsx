@@ -29,22 +29,22 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/services" element={<Services />} />
         <Route
-          path="/services/australiapermanentvisa"
-          element={<AustraliaPermanentVisa />}
-        />
-        <Route
-          path="/services/canadapermanentvisa"
+          path="/services/canadapermanentresidency"
           element={<CanadaPermanentVisa />}
         />
         <Route
-          path="/services/canadatemporaryvisa"
+          path="/services/canadavisitorvisa"
           element={<CanadaTemporaryVisa />}
         />
+        <Route
+          path="/services/australiapermanentresidentvisa"
+          element={<AustraliaPermanentVisa />}
+        />
         <Route path="/immigration" element={<Immigration />} />
-        <Route path="/immigration/business" element={<Business />} />
-        <Route path="/immigration/study" element={<Study />} />
-        <Route path="/immigration/family" element={<Family />} />
-        <Route path="/immigration/skilled" element={<Skilled />} />
+        <Route path="/immigration/businessimmigration" element={<Business />} />
+        <Route path="/immigration/studyabroad" element={<Study />} />
+        <Route path="/immigration/familyimmigration" element={<Family />} />
+        <Route path="/immigration/skilledimmigration" element={<Skilled />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />

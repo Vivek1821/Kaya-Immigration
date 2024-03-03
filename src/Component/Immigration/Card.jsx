@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Card = ({ title, image, details, path }) => {
+const Card = ({ titles, image, details }) => {
+  const formattedTitle = titles.replace(/\s/g, "").toLowerCase();
+
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
@@ -30,7 +32,7 @@ const Card = ({ title, image, details, path }) => {
       }`}
     >
       <div className="relative h-60 overflow-hidden">
-        <img src={image} alt={title} className="w-full h-full object-cover" />
+        <img src={image} alt={titles} className="w-full h-full object-cover" />
         <div className="absolute inset-0 flex items-end p-6">
           <div className="bg-white p-4 rounded-lg shadow-lg w-full">
             <div
@@ -42,7 +44,7 @@ const Card = ({ title, image, details, path }) => {
                   showDetails ? "rotate-180" : "rotate-0"
                 } transition-transform duration-300 ease-in-out`}
               />
-              <h4 className="ml-2 text-sm font-semibold">{title}</h4>
+              <h4 className="ml-2 text-sm font-semibold">{titles}</h4>
             </div>
           </div>
         </div>
@@ -51,7 +53,7 @@ const Card = ({ title, image, details, path }) => {
         <div className="p-6 flex flex-col">
           {renderDetails()}
           <Link
-            to={path}
+            to={`/immigration/${formattedTitle}`}
             className="mt-4 block text-center py-2 bg-primary text-black font-semibold rounded-full"
           >
             Read More

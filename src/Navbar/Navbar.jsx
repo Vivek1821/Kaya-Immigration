@@ -7,6 +7,8 @@ const Navbar = () => {
   const [session, setSession] = useState(null);
   const navigate = useNavigate();
 
+  console.log(session);
+
   useEffect(() => {
     // Fetch the current user session when the component mounts
     const fetchSession = async () => {

@@ -11,6 +11,12 @@ const SignUp = () => {
     immigration_type: "",
     immigration_service: "",
     password: "",
+    age: 0,
+    gender: "",
+    preferred_country: "",
+    residence_country: "",
+    occupation: "",
+    marital_status: "Single",
   });
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -73,7 +79,9 @@ const SignUp = () => {
       !formData.email ||
       !formData.immigration_type ||
       !formData.immigration_service ||
-      !formData.password
+      !formData.password ||
+      !formData.gender ||
+      !formData.occupation
     ) {
       setError("Please fill in all fields.");
       return;
@@ -97,7 +105,7 @@ const SignUp = () => {
 
     try {
       const response = await fetch(
-        "https://65e09bb8d3db23f76249b70d.mockapi.io/userinfo",
+        "https://65e40f7388c4088649f63c58.mockapi.io/kayaadmin/users",
         {
           method: "POST",
           headers: {
@@ -119,6 +127,12 @@ const SignUp = () => {
         immigration_type: "",
         immigration_service: "",
         password: "",
+        age: 0,
+        gender: "",
+        preferred_country: "",
+        residence_country: "",
+        occupation: "",
+        marital_status: "Single",
       });
       setCaptchaToken(null);
       captcha.current.resetCaptcha();
@@ -131,7 +145,7 @@ const SignUp = () => {
 
   return (
     <div className="flex justify-center items-center bg-cover mt-8">
-      <div className="bg-white p-8 rounded-md shadow-md w-3/5 transition-transform border-[1px] border-black">
+      <div className="bg-white p-8 rounded-md shadow-md w-2/5 transition-transform border-[1px] border-black">
         <h2 className="text-3xl font-semibold mb-4">Sign Up</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {successMessage && (
@@ -155,7 +169,6 @@ const SignUp = () => {
               onChange={handleChange}
             />
           </div>
-          {/* Similar inputs for last name, email, and password */}
           <div className="mb-4">
             <label
               htmlFor="last_name"
@@ -250,6 +263,123 @@ const SignUp = () => {
                   {service.title}
                 </option>
               ))}
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="residence_country"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Residence Country
+            </label>
+            <input
+              type="text"
+              id="residence_country"
+              name="residence_country"
+              className="border rounded w-full py-2 px-3"
+              placeholder="Enter your residence country"
+              value={formData.residence_country}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="preferred_country"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Preferred Country
+            </label>
+            <input
+              type="text"
+              id="preferred_country"
+              name="preferred_country"
+              className="border rounded w-full py-2 px-3"
+              placeholder="Enter your preferred country"
+              value={formData.preferred_country}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="age"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Age
+            </label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              className="border rounded w-full py-2 px-3"
+              placeholder="Enter your age"
+              value={formData.age}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="gender"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Gender
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              className="border rounded w-full py-2 px-3"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="occupation"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Occupation
+            </label>
+            <select
+              id="occupation"
+              name="occupation"
+              className="border rounded w-full py-2 px-3"
+              value={formData.occupation}
+              onChange={handleChange}
+            >
+              <option value="">Select Occupation</option>
+              <option value="Student">Student</option>
+              <option value="Employed">Employed</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="marital_status"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Marital Status
+            </label>
+            <select
+              id="marital_status"
+              name="marital_status"
+              className="border rounded w-full py-2 px-3"
+              value={formData.marital_status}
+              onChange={handleChange}
+            >
+              <option value="">Select Marital Status</option>
+              <option value="Single">Single</option>
+              <option value="Married">Married</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <HCaptcha
