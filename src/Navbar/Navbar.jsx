@@ -48,16 +48,21 @@ const Navbar = () => {
       <nav className="space-x-4 flex">
         <Link to="/">Home</Link>
         <Link to="/aboutUs">About Us</Link>
-        <Link to="/services">Services</Link>
-        <Link to="/immigration">Immigration</Link>
+
         <Link to="/contactUs">Contact Us</Link>
-        {!session ? (
+        {session === null ? (
           <div className="flex gap-2">
             <Link to="/signin">Sign In</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
         ) : (
-          <button onClick={handleSignOut}>Sign Out</button>
+          <>
+            <div className="flex gap-2">
+              <Link to="/services">Services</Link>
+              <Link to="/immigration">Immigration</Link>
+            </div>
+            <button onClick={handleSignOut}>Sign Out</button>
+          </>
         )}
       </nav>
     </div>
