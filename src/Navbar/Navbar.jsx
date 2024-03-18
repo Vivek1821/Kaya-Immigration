@@ -4,10 +4,8 @@ import logo from "../Assets/Artboard.jpg";
 import supabase from "../Component/SupabaseClient";
 
 const Navbar = () => {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState(false);
   const navigate = useNavigate();
-
-  console.log(session);
 
   useEffect(() => {
     // Fetch the current user session when the component mounts
@@ -22,7 +20,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     try {
       await supabase.auth.signOut();
-      setSession(null);
+      setSession(false);
       // Redirect or perform any other action after sign-out
     } catch (error) {
       console.error("Sign out error:", error.message);
@@ -50,7 +48,7 @@ const Navbar = () => {
         <Link to="/aboutUs">About Us</Link>
 
         <Link to="/contactUs">Contact Us</Link>
-        {session === null ? (
+        {!session ? (
           <div className="flex gap-2">
             <Link to="/signin">Sign In</Link>
             <Link to="/signup">Sign Up</Link>

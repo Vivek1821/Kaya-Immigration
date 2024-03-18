@@ -10,8 +10,8 @@ const Calendar = () => {
   };
 
   return (
-    <div>
-      <h1>Appointment Scheduler</h1>
+    <div className="flex flex-col justify-center items-center gap-6">
+      <h1 className="mt-4 text-xl font-semibold">Appointment Scheduler</h1>
       <CalendarComponent onChange={handleDateChange} />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation ,useNavigate } from "react-router-dom";
 
 const InputForm = () => {
   const location = useLocation();
@@ -10,6 +10,7 @@ const InputForm = () => {
     contactNumber: "",
   });
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -37,7 +38,7 @@ const InputForm = () => {
     };
 
     // POST the data to your API
-    fetch("https://65e09bb8d3db23f76249b70d.mockapi.io/calendar-data", {
+    fetch("https://65e40f7388c4088649f63c58.mockapi.io/kayaadmin/calendar-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,17 +53,16 @@ const InputForm = () => {
       })
       .then((data) => {
         console.log("Data successfully posted to API:", data);
-        setSubmitSuccess(true); // Set submit success flag to true
-        // Reset form data after submission
+        setSubmitSuccess(true); 
         setFormData({
           name: "",
           email: "",
           contactNumber: "",
         });
+        navigate("/")
       })
       .catch((error) => {
         console.error("Error posting data to API:", error);
-        // Handle errors here
       });
   };
 
@@ -133,6 +133,7 @@ const InputForm = () => {
           </div>
           <button
             type="submit"
+            
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Submit

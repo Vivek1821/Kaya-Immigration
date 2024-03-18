@@ -12,15 +12,15 @@ const GetInTouch = () => {
 
             <div className="info">
               <div className="information">
-                <img src="img/location.png" className="icon" alt="" />
+                
                 <p> Wework Futura, Magarpatta</p>
               </div>
               <div className="information">
-                <img className="icon" alt="" />
+                
                 <p>kayagroup2023@gmail.com</p>
               </div>
               <div className="information">
-                <img src="img/phone.png" className="icon" alt="" />
+                
                 <p>+918600876878</p>
               </div>
             </div>
